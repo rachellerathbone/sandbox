@@ -8,5 +8,3 @@ jobs:
     - uses: hmarr/auto-approve-action@v2
       with:
         github-token: "${{ secrets.GITHUB_TOKEN }}"
-
-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
