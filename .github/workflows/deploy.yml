@@ -1,0 +1,75 @@
+# This is a basic workflow to help you get started with Actions
+
+name: My Deployment flow
+
+# Controls when the action will run.
+on: [push]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  deploy-to-staging:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-18.04
+    name: Deploy to Staging
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - uses: chrnorm/deployment-action@releases/v1
+        name: Create staging deployment
+        id: deployment_staging
+        with:
+          token: "${{ github.token }}"
+          target_url: http://my-cool-app.com
+          environment: Staging
+      - name: Running staging deployment
+        run: |
+          echo Deploying to staging...
+      - uses: chrnorm/deployment-status@releases/v1
+        name: Update staging deployment
+        with:
+          token: "${{ github.token }}"
+          target_url: http://my-cool-app.com
+          state: "success"
+          deployment_id: ${{ steps.deployment_staging.outputs.deployment_id }}
+  deploy-to-prod:
+    runs-on: ubuntu-18.04
+    name: Deploy to Production
+    steps:
+      - uses: chrnorm/deployment-action@releases/v1
+        name: Create prod deployment
+        id: deployment_prod
+        with:
+          token: "${{ github.token }}"
+          target_url: http://my-cool-app.com
+          environment: Production
+      - name: Running production deployment
+        run: |
+          echo Deploying to production...
+      - uses: chrnorm/deployment-status@releases/v1
+        name: Update prod deployment
+        with:
+          token: "${{ github.token }}"
+          target_url: http://my-cool-app.com
+          state: "success"
+          deployment_id: ${{ steps.deployment_prod.outputs.deployment_id }}
+  deploy-to-random-env:
+    runs-on: ubuntu-18.04
+    name: Deploy to random env
+    steps:
+      - uses: chrnorm/deployment-action@releases/v1
+        name: Create random env deployment
+        id: deployment_random
+        with:
+          token: "${{ github.token }}"
+          target_url: http://my-cool-app.com
+          environment: Random env
+      - name: Running random env deployment
+        run: |
+          echo Deploying to random env...
+      - uses: chrnorm/deployment-status@releases/v1
+        name: Update random env deployment
+        with:
+          token: "${{ github.token }}"
+          target_url: http://my-cool-app.com
+          state: "success"
+          deployment_id: ${{ steps.deployment_random.outputs.deployment_id }}
