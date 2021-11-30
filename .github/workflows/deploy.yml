@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: My Deployment flow without write
+name: My Deployment flow with deployment status webhook
 
 # Controls when the action will run.
 on: [push]
