@@ -64,7 +64,7 @@ jobs:
         with:
           token: "${{ github.token }}"
           target_url: http://my-cool-app.com
-          environment: Random env
+          environment: Testing
       - name: Running random env deployment
         run: |
           echo Deploying to random env...
