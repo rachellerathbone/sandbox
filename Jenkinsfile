@@ -16,9 +16,19 @@ pipeline {
             }
            post {
                  always {
-                     jiraSendBuildInfo branch: 'main'
+                     jiraSendDeploymentInfo site: 'rachellerathbone.atlassian.net'
                  }
              }
         }
+        stage('build') {
+             steps {
+                echo 'Building..'
+             }
+             post {
+                 always {
+                     jiraSendBuildInfo site: 'rachellerathbone.atlassian.net'
+                 }
+             }
+         }
     }
 }
